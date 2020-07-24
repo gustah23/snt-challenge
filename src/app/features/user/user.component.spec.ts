@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserComponent } from './user.component';
+import {UserComponent} from './user.component';
 import {FormsModule} from '@angular/forms';
 import {UserListComponent} from './user-list/user-list.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {UserService} from '../../core/services/user.service';
 import {of} from 'rxjs';
+import {DebugElement} from '@angular/core';
 
 describe('UserComponent', () => {
   let component: UserComponent;
@@ -14,12 +15,14 @@ describe('UserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, HttpClientTestingModule ],
-      declarations: [ UserComponent, UserListComponent ],
+      imports: [FormsModule, HttpClientTestingModule],
+      declarations: [UserComponent, UserListComponent],
       providers: [
-        { provide: UserService, useValue: {
+        {
+          provide: UserService, useValue: {
             getUsers: () => of([{id: 1, name: 'test'}])
-          }}
+          }
+        }
       ]
     })
       .compileComponents();
@@ -42,5 +45,15 @@ describe('UserComponent', () => {
     fixture.detectChanges();
 
     expect(component.users).toEqual([{id: 1, name: 'test'}]);
+  });
+
+  it('button should has btn class', () => {
+    const userDe: DebugElement = fixture.debugElement;
+    const userEl: HTMLElement = userDe.nativeElement;
+    const buttons = userEl.querySelectorAll('button');
+
+    buttons.forEach(btn => {
+      expect(btn.classList).toContain('btn');
+    });
   });
 });
