@@ -1,0 +1,26 @@
+@import "../../../shared/variables";
+
+$bg-color: $default-bg-color;
+$header-height: 100px;
+$header-spacing: $default-spacing;
+
+:host {
+  display: block;
+  position: relative;
+  height: $header-height;
+}
+
+.snt {
+  &__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $header-height;
+    background-color: $bg-color;
+
+    display: flex;
+    align-items: center;
+    padding: 0 $header-spacing;
+  }
+}
