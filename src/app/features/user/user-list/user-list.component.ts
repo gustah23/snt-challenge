@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import {UserModel} from '../../../models/user.model';
 
 @Component({
@@ -12,11 +12,18 @@ export class UserListComponent {
   @Input()
   public users: UserModel[];
 
+  @Output()
+  public deleteUserId: EventEmitter<number | null> = new EventEmitter<null>();
+
+  @Output()
+  public updateUserEmit: EventEmitter<UserModel | null> = new EventEmitter<null>();
+
   public deleteUser(userId: number): void {
-    /* TODO implement */
+    this.deleteUserId.emit(userId);
   }
 
   public updateUser(user: UserModel): void {
-    /* TODO implement */
+    user.isEditing = false;
+    this.updateUserEmit.emit(user);
   }
 }

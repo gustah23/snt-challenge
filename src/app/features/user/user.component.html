@@ -1,2 +1,4 @@
 <app-user-list *ngIf="users.length" [users]="users"
+               (deleteUserId)="deleteUser($event)"
+               (updateUserEmit)="updateUser($event)"
 ></app-user-list>

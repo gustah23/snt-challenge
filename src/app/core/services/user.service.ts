@@ -8,6 +8,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class UserService {
   private readonly apiUrl = 'https://uitest.free.beeceptor.com/usernames';
+  private readonly mockUsers = [{name: 'Ras Berry'}, {name: 'John Doe'}, {name: 'Gareth Aldridge'}, {name: 'Hallen Pipper'},
+    {name: 'Joe Allen'}, {
+      name: 'Dolly Johnson'
+    }];
+  private readonly userStorageKey = 'snt-users';
 
   private users: UserModel[] = [];
 
@@ -21,17 +26,51 @@ export class UserService {
     return this.users$.asObservable();
   }
 
+  public deleteUser(userId: number): void {
+    this.users = this.users.filter(user => user.id !== userId);
+    this.users$.next(this.users);
+  }
+
+  public updateUser(user: UserModel): void {
+    const userIndex = this.users.findIndex(oldUser => oldUser.id === user.id);
+    if (userIndex !== -1) {
+      this.users[userIndex].name = user.name;
+    }
+    this.users$.next(this.users);
+    this.updateStorage();
+  }
+
   private requestUser(): void {
+    const storageData = localStorage.getItem(this.userStorageKey);
+    if (storageData) {
+      this.users = JSON.parse(storageData);
+      this.users$.next(this.users);
+      return;
+    }
     const headers = new HttpHeaders({'Content-Type': `application/json`});
-    this.http.get(this.apiUrl, { headers }).subscribe(response => {
+    this.http.get(this.apiUrl, {headers}).subscribe(response => {
       if (response && Array.isArray(response)) {
         this.users = response.map((user, i) => {
-          return {id: i, ...user };
+          return {id: i, ...user};
         });
         this.users$.next(this.users);
+        this.updateStorage();
       } else {
-        console.warn('Request to mock user data failed');
+        console.warn('Request to mock user does not have an array of users');
+      }
+    }, error => {
+      /* Added treatment for to many responses error */
+      if (error && error.status === 429) {
+        this.users = this.mockUsers.map((user, i) => {
+          return {id: i, ...user};
+        });
+        this.users$.next(this.users);
+        this.updateStorage();
       }
     });
+  }
+
+  private updateStorage(): void {
+    localStorage.setItem(this.userStorageKey, JSON.stringify(this.users));
   }
 }

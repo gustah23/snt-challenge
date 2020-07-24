@@ -31,4 +31,12 @@ export class UserComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
+  public deleteUser(userId: number): void {
+    this.userService.deleteUser(userId);
+  }
+
+  public updateUser(user: UserModel): void {
+    this.userService.updateUser(user);
+  }
 }
