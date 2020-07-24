@@ -1,0 +1,14 @@
+@import "shared/variables";
+
+$header-height: 100px;
+$footer-height: 100px;
+
+main {
+  max-width: 1440px;
+  display: flex;
+  justify-content: center;
+  padding: $default-spacing $default-spacing * 2;
+  height: calc(100vh - #{$header-height + $footer-height + $default-spacing * 2});
+  overflow-y: auto;
+}
+

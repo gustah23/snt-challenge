@@ -1,0 +1,42 @@
+@import "variables";
+
+.btn {
+  border-radius: 4px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  min-width: 80px;
+  text-decoration: none;
+  color: $color-white;
+  font-weight: bold;
+  margin-left: $default-spacing / 2;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: #e6e6e6;
+    cursor: default;
+    pointer-events: none;
+    color: rgba(0,0,0, 0.2);
+  }
+
+  &__primary {
+    background-color: $primary-color;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.7);
+    }
+  }
+
+  &__secondary {
+    background-color: $secondary-color;
+
+    &:hover {
+      background-color: rgba($secondary-color, 0.7);
+    }
+  }
+}

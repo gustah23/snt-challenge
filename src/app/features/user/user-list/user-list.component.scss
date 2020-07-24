@@ -1,0 +1,25 @@
+@import "../../../shared/btn";
+@import "../../../shared/variables";
+
+.user-list {
+  list-style-type: none;
+  border: 1px solid $color-grey;
+  padding: 0;
+  border-radius: 4px;
+
+  &__item,
+  &__buttons {
+    display: flex;
+  }
+
+  &__item {
+    justify-content: space-between;
+    padding: $default-spacing;
+    min-width: 200px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-grey;
+    }
+
+  }
+}

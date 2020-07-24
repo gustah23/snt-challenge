@@ -1,15 +1,18 @@
-<div>
-  <input type="text" [(ngModel)]="newUserName" />
-  <button (click)="addUser(newUserName); newUserName = ''" [disabled]="!newUserName"> ADD </button>
+<div class="user__input-container">
+  <span>Add new user</span>
+  <div class="user__input-wrapper">
+    <input class="user__input" type="text" [(ngModel)]="newUserName" />
+    <button class="btn btn__primary" (click)="addUser(newUserName); newUserName = ''" [disabled]="!newUserName"> ADD </button>
+  </div>
 </div>
 
-<div>
+<div class="user__buttons">
   <ng-container *ngIf="!isEditingAll && users.length; else saveButton">
-    <button (click)="editAllUsers()">Edit All</button>
-    <button (click)="deleteAllUsers()">Delete All</button>
+    <button class="btn btn__secondary user__button" (click)="editAllUsers()">Edit All</button>
+    <button class="btn btn__primary" (click)="deleteAllUsers()">Delete All</button>
   </ng-container>
   <ng-template #saveButton>
-    <button *ngIf="isEditingAll" (click)="saveAllUsers()">Save All</button>
+    <button *ngIf="isEditingAll" (click)="saveAllUsers()" class="btn btn__secondary user__button">Save All</button>
   </ng-template>
 </div>
 

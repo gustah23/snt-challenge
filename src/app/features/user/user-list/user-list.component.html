@@ -2,15 +2,15 @@
   <li class="user-list__item" *ngFor="let user of userService.getUsers() | async">
     <span *ngIf="!user.isEditing && !user.isEditingAll; else inputField"> {{ user.name }} </span>
     <ng-template #inputField>
-      <input type="text" [(ngModel)]="user.name" class="user-list__input"/>
+      <input type="text" [(ngModel)]="user.name" class="user-list__input" autofocus/>
     </ng-template>
     <div class="user-list__buttons">
       <ng-container *ngIf="!(user.isEditing || user.isEditingAll); else saveButton">
-        <button (click)="user.isEditing = true" class="user-list__button user-list__button--edit">Edit</button>
-        <button (click)="deleteUser(user.id)">Delete</button>
+        <button (click)="user.isEditing = true" class="btn btn__secondary">Edit</button>
+        <button (click)="deleteUser(user.id)" class="btn btn__primary">Delete</button>
       </ng-container>
       <ng-template #saveButton>
-        <button *ngIf="user.isEditing" (click)="updateUser(user); user.isEditing = false">Save</button>
+        <button *ngIf="user.isEditing" (click)="updateUser(user); user.isEditing = false" class="btn btn__secondary">Save</button>
       </ng-template>
     </div>
   </li>

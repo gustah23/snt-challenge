@@ -4,7 +4,10 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   selector: 'app-header',
   template: `
     <header class="snt__header">
-      Santander Bank
+      <img src="../../../../assets/images/logo.svg" alt="Santander">
+      <h1>
+        UI Challenge - Luiz Perez
+      </h1>
     </header>
   `,
   styleUrls: ['./header.component.scss'],

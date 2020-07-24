@@ -1,0 +1,33 @@
+@import "../../shared/btn";
+@import "../../shared/variables";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.user {
+  &__input-container {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: $default-spacing;
+    border-bottom: 1px solid $color-grey;
+  }
+
+  &__input-wrapper {
+    display: flex;
+  }
+
+  &__input {
+    width: 200px;
+  }
+
+  &__buttons {
+    display: flex;
+    margin: $default-spacing 0;
+  }
+
+  &__button {
+    margin-left: 0;
+  }
+}
