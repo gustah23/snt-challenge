@@ -40,11 +40,17 @@ export class UserService {
     this.users$.next(this.users);
     this.updateStorage();
   }
+
   public addUser(userName: string): void {
     const newUserId = this.genId();
     this.users.push({ id: newUserId, name: userName });
     this.users$.next(this.users);
     this.updateStorage();
+  }
+
+  public editAll(): void {
+    this.users.forEach(user => user.isEditingAll = true);
+    this.users$.next(this.users);
   }
 
   private requestUser(): void {

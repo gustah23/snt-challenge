@@ -3,6 +3,16 @@
   <button (click)="addUser(newUserName); newUserName = ''" [disabled]="!newUserName"> ADD </button>
 </div>
 
+<div>
+  <ng-container *ngIf="!isEditingAll && users.length; else saveButton">
+    <button (click)="editAllUsers()">Edit All</button>
+    <button (click)="deleteAllUsers()">Delete All</button>
+  </ng-container>
+  <ng-template #saveButton>
+    <button *ngIf="isEditingAll" (click)="saveAllUsers()">Save All</button>
+  </ng-template>
+</div>
+
 <app-user-list (deleteUserId)="deleteUser($event)"
                (updateUserEmit)="updateUser($event)"
 ></app-user-list>
