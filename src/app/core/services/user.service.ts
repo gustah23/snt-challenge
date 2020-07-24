@@ -27,6 +27,7 @@ export class UserService {
   }
 
   public deleteUser(userId: number): void {
+    /* NOTE: I'm note updating the storage here purposefully to avoid the necessary to create new users after the delete, so I just need to refresh the page */
     this.users = this.users.filter(user => user.id !== userId);
     this.users$.next(this.users);
   }
@@ -36,6 +37,12 @@ export class UserService {
     if (userIndex !== -1) {
       this.users[userIndex].name = user.name;
     }
+    this.users$.next(this.users);
+    this.updateStorage();
+  }
+  public addUser(userName: string): void {
+    const newUserId = this.genId();
+    this.users.push({ id: newUserId, name: userName });
     this.users$.next(this.users);
     this.updateStorage();
   }
@@ -72,5 +79,9 @@ export class UserService {
 
   private updateStorage(): void {
     localStorage.setItem(this.userStorageKey, JSON.stringify(this.users));
+  }
+
+  private genId(): number {
+    return this.users.length > 0 ? Math.max(...this.users.map(user => user.id)) + 1 : 1;
   }
 }

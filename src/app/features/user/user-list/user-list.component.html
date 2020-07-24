@@ -1,5 +1,5 @@
 <ul class="user-list">
-  <li class="user-list__item" *ngFor="let user of users">
+  <li class="user-list__item" *ngFor="let user of userService.getUsers() | async">
     <span *ngIf="!user.isEditing && !user.isEditingAll; else inputField"> {{ user.name }} </span>
     <ng-template #inputField>
       <input type="text" [(ngModel)]="user.name" class="user-list__input"/>

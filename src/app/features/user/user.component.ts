@@ -10,27 +10,11 @@ import {UserModel} from '../../models/user.model';
   styleUrls: ['./user.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserComponent implements OnInit, OnDestroy {
-  private readonly unsubscribe: Subject<void> = new Subject<void>();
-  public users: UserModel[] = [];
+export class UserComponent {
+  public newUserName: string;
+  public isEditingAll = false;
 
-
-  constructor(private userService: UserService, private cd: ChangeDetectorRef) {}
-
-  public ngOnInit(): void {
-    this.userService.getUsers().pipe(
-      takeUntil(this.unsubscribe)
-    ).subscribe(users => {
-      console.log(users);
-      this.users = users;
-      this.cd.markForCheck();
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+  constructor(private userService: UserService) {}
 
   public deleteUser(userId: number): void {
     this.userService.deleteUser(userId);
@@ -38,5 +22,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public updateUser(user: UserModel): void {
     this.userService.updateUser(user);
+  }
+
+  public addUser(name): void {
+    this.userService.addUser(name);
   }
 }

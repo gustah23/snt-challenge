@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import {UserModel} from '../../../models/user.model';
+import {UserService} from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -17,6 +18,8 @@ export class UserListComponent {
 
   @Output()
   public updateUserEmit: EventEmitter<UserModel | null> = new EventEmitter<null>();
+
+  constructor(public userService: UserService) {}
 
   public deleteUser(userId: number): void {
     this.deleteUserId.emit(userId);

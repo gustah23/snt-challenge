@@ -1,4 +1,8 @@
-<app-user-list *ngIf="users.length" [users]="users"
-               (deleteUserId)="deleteUser($event)"
+<div>
+  <input type="text" [(ngModel)]="newUserName" />
+  <button (click)="addUser(newUserName); newUserName = ''" [disabled]="!newUserName"> ADD </button>
+</div>
+
+<app-user-list (deleteUserId)="deleteUser($event)"
                (updateUserEmit)="updateUser($event)"
 ></app-user-list>
